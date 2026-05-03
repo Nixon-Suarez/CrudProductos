@@ -14,10 +14,12 @@ export function ProductListPage() {
     }, [])
 
   return (
-    <div className="grid grid-cols-3 gap-3">
-        {products.map( Products => (
-            <ProductCard key={Products.id} Products={Products}/>
+    <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
+      </div>
     </div>
   )
 }

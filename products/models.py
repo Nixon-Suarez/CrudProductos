@@ -14,4 +14,4 @@ class Producto(models.Model):
     stock = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)  # Relación aquí
     estado = models.BooleanField(default=True)
-    img = models.URLField(max_length=200, blank=True)
+    img = models.ImageField(upload_to='productos/', blank=True)
