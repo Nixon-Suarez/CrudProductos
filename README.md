@@ -25,17 +25,6 @@ La Programación Orientada a Objetos es el pilar de este desarrollo por las sigu
 2. **Encapsulamiento**: Las reglas de interacción con la base de datos están encapsuladas dentro del ORM de Django (Object-Relational Mapping). No interactuamos directamente con sentencias SQL en el código, sino a través de objetos que protegen la integridad de sus propios datos.
 3. **Reutilización y Herencia**: Al heredar de `models.Model`, nuestras clases de Base de Datos ganan automáticamente todas las funcionalidades de persistencia, filtrado y validación preconstruidas por el framework, agilizando enormemente el desarrollo.
 
-## 4. Capturas de pantalla del formulario y resultados
-
-> [!NOTE]
-> *Reemplaza los enlaces entre paréntesis de abajo con las ubicaciones reales de tus capturas de pantalla, o arrastra las imágenes desde tu computadora sobre este documento directamente.*
-
-**Formulario de Registro/Edición de Producto:**
-![Captura del formulario](agregar_captura_formulario.png)
-
-**Lista de Productos (Resultados almacenados):**
-![Captura de la tabla de resultados](agregar_captura_resultados.png)
-
 ## 5. Explicación de validaciones
 
 El sistema previene errores humanos y asegura la integridad de los datos empleando una estrategia de **Validación en Dos Capas**:
