@@ -4,6 +4,7 @@ import { getProduct, createProduct, deleteProduct, updateProduct } from '../api/
 import { getCategories } from '../api/categories.api'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
+import Swal from 'sweetalert2'
 
 export function ProductFormPage() {
   const {
@@ -114,30 +115,39 @@ export function ProductFormPage() {
   })
 
   const handleDelete = async () => {
-    const accepted = window.confirm('¿Estás seguro de eliminar este producto?')
-
-    if (!accepted) return
-
-    try {
-      await deleteProduct(params.id)
-      toast.success('Producto eliminado con éxito', {
-        position: 'bottom-right',
-        style: {
-          background: '#101010',
-          color: '#fff',
-        },
-      })
-      navigate('/products')
-    } catch (error) {
-      console.error('Error deleting product:', error)
-      toast.error('No se pudo eliminar el producto', {
-        position: 'bottom-right',
-        style: {
-          background: '#101010',
-          color: '#fff',
-        },
-      })
-    }
+    Swal.fire({
+      title: "Estás Seguro?",
+      text: "No podrás revertir esto",
+      icon: "warning",
+      theme: "dark",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminarlo!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteProduct(params.id)
+          toast.success('Producto eliminado con éxito', {
+            position: 'bottom-right',
+            style: {
+              background: '#101010',
+              color: '#fff',
+            },
+          })
+          navigate('/products')
+        } catch (error) {
+          console.error('Error deleting product:', error)
+          toast.error('No se pudo eliminar el producto', {
+            position: 'bottom-right',
+            style: {
+              background: '#101010',
+              color: '#fff',
+            },
+          })
+        }
+      }
+    });
   }
 
   return (
