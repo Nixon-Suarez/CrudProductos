@@ -4,6 +4,15 @@ const productApi = axios.create({
   baseURL: "http://127.0.0.1:8000/api/v1/products/"
 })
 
+productApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem('authToken')
+  if (token) {
+    config.headers = config.headers || {}
+    config.headers['Authorization'] = `Token ${token}`
+  }
+  return config
+})
+
 export const getProducts = () => productApi.get("/")
 export const createProduct = (data) => {
   const formData = new FormData()

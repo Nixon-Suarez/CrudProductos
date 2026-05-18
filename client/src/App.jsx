@@ -1,28 +1,40 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ProductPage } from "./pages/ProductPage";
 import { ProductFormPage } from "./pages/ProductFormPage";
 import { Navigation } from "./components/Navigation";
 import { Toaster } from "react-hot-toast"
 import { CategoriesPage } from "./pages/CategoriesPage";
 import { CategoriesFormPage } from "./pages/CategoriesFormPage";
+import { LoginPage } from "./pages/LoginPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="container mx-auto">
-        <Navigation />
-        <Routes>
-          <Route path="/" element = {<Navigate to= "/Products"/>} />
-          <Route path="/Products" element={<ProductPage />} />
-          <Route path="/newProduct" element={<ProductFormPage />} />
-          <Route path="/Products/:id" element={<ProductFormPage/>} />
-          <Route path="/Categories" element={<CategoriesPage/>} />
-          <Route path="/Categories/:id" element={<CategoriesFormPage/>} />
-        </Routes>
-        <Toaster />
-      </div>
+      <AppContent />
     </BrowserRouter>
   );
+}
+
+function AppContent() {
+  const location = useLocation()
+  const hideNav = location.pathname === '/login'
+
+  return (
+    <div className="container mx-auto">
+      {!hideNav && <Navigation />}
+      <Routes>
+        <Route path="/" element = {<Navigate to= "/login"/>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/Products" element={<ProtectedRoute><ProductPage /></ProtectedRoute>} />
+        <Route path="/newProduct" element={<ProtectedRoute><ProductFormPage /></ProtectedRoute>} />
+        <Route path="/Products/:id" element={<ProtectedRoute><ProductFormPage/></ProtectedRoute>} />
+        <Route path="/Categories" element={<ProtectedRoute><CategoriesPage/></ProtectedRoute>} />
+        <Route path="/Categories/:id" element={<ProtectedRoute><CategoriesFormPage/></ProtectedRoute>} />
+      </Routes>
+      <Toaster />
+    </div>
+  )
 }
 
 export default App;

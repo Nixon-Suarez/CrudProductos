@@ -1,6 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { logout, getToken } from '../api/user.api'
 
 export function Navigation() {
+  const navigate = useNavigate()
+  const token = getToken()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
   return (
     <header className="mb-6 px-4 py-4">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 rounded-3xl border border-zinc-800 bg-zinc-950/85 p-4 shadow-2xl shadow-black/20 sm:flex-row sm:items-center sm:justify-between">
@@ -23,6 +31,11 @@ export function Navigation() {
               Crear Producto
             </button>
           </Link>
+          {token && (
+            <button onClick={handleLogout} className="rounded-2xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-zinc-800">
+              Cerrar Sesión
+            </button>
+          )}
           {/* <Link to="/Categories">
             <button className="rounded-2xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-slate-500 hover:bg-zinc-800">
               Crear Categoria

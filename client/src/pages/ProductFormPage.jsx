@@ -100,7 +100,6 @@ export function ProductFormPage() {
           },
         })
       }
-
       navigate('/products')
     } catch (error) {
       console.error('Error saving product:', error)
