@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { logout, getToken } from '../api/user.api'
 
-export function Navigation() {
+export function Navigation({ categoria }) {
   const navigate = useNavigate()
   const token = getToken()
 
@@ -26,21 +26,25 @@ export function Navigation() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <Link to="/newProduct">
-            <button className="rounded-2xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-400">
-              Crear Producto
-            </button>
-          </Link>
+          {!categoria && (
+            <Link to="/newProduct">
+              <button className="rounded-2xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-400">
+                Crear Producto
+              </button>
+            </Link>
+          )}
+          {categoria && (
+            <Link to="/newCategory">
+              <button className="rounded-2xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-400">
+                Crear Categoria
+              </button>
+            </Link>
+          )}
           {token && (
             <button onClick={handleLogout} className="rounded-2xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-zinc-800">
               Cerrar Sesión
             </button>
           )}
-          {/* <Link to="/Categories">
-            <button className="rounded-2xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-slate-500 hover:bg-zinc-800">
-              Crear Categoria
-            </button>
-          </Link> */}
         </div>
       </div>
     </header>

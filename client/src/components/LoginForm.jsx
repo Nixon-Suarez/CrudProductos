@@ -29,8 +29,18 @@ export function LoginForm() {
         })
         navigate('/products')
     } catch (error) {
+      if (error.response && error.response.status === 400) {
+        toast.error('Credenciales inválidas', {
+          position: 'bottom-right',
+          style: {
+            background: '#101010',
+            color: '#fff',
+          },
+        })
+        return
+      }
       console.error('Error in login:', error)
-      toast.error('No se loguear de forma exitosa', {
+      toast.error('No se pudo loguear de forma exitosa', {
         position: 'bottom-right',
         style: {
           background: '#101010',
