@@ -7,6 +7,7 @@ import { CategoriesPage } from "./pages/CategoriesPage";
 import { CategoriesFormPage } from "./pages/CategoriesFormPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { RegisterPage } from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
 
 function AppContent() {
   const location = useLocation()
-  const hideNav = location.pathname === '/login'
+  const hideNav = location.pathname === '/login' || location.pathname === '/register'
   const categoria = location.pathname === '/Categories' || location.pathname.startsWith('/Categories/') || location.pathname === '/newCategory'
 
   return (
@@ -27,6 +28,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element = {<Navigate to= "/login"/>} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/Products" element={<ProtectedRoute><ProductPage /></ProtectedRoute>} />
         <Route path="/newProduct" element={<ProtectedRoute><ProductFormPage /></ProtectedRoute>} />
         <Route path="/Products/:id" element={<ProtectedRoute><ProductFormPage/></ProtectedRoute>} />

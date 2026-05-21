@@ -47,4 +47,4 @@ const loadStoredAuth = () => {
 loadStoredAuth()
 
 export const login = (data) => userApi.post("login/", data)
-export const register = (data) => userApi.post("register/", data)
+export const registro = (data) => userApi.post("register/", data)

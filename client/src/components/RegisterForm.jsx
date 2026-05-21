@@ -1,10 +1,10 @@
 import { useNavigate, Link } from 'react-router-dom'
-import { login, setAuthStorage } from '../api/user.api'
+import { registro, setAuthStorage } from '../api/user.api'
 import { toast } from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 
-export function LoginForm() {
+export function RegisterForm() {
   const navigate = useNavigate()
 
   const {
@@ -13,33 +13,19 @@ export function LoginForm() {
       formState: { errors },
     } = useForm()
 
-  const [usuarios, setusuarios] = useState([])
-
   const onSubmit = handleSubmit(async (data) => {
     try {
-        const response = await login(data)
-        setAuthStorage(response.data)
-        setusuarios(response.data)
-        toast.success('login éxitoso', {
+        await registro(data)
+        toast.success('registro éxitoso', {
           position: 'bottom-right',
           style: {
             background: '#101010',
             color: '#fff',
           },
         })
-        navigate('/products')
+        navigate('/login')
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        toast.error('Credenciales inválidas', {
-          position: 'bottom-right',
-          style: {
-            background: '#101010',
-            color: '#fff',
-          },
-        })
-        return
-      }
-      console.error('Error in login:', error)
+      console.error('Error in register:', error)
       toast.error('No se pudo loguear de forma exitosa', {
         position: 'bottom-right',
         style: {
@@ -57,7 +43,7 @@ export function LoginForm() {
           <div>
             <p className="text-sm uppercase tracking-[0.28em] text-sky-400">Gestión de Productos</p>
             <h1 className="mt-2 text-3xl font-bold text-zinc-100">
-              login
+              register
             </h1>
           </div>
         </div>
@@ -91,6 +77,19 @@ export function LoginForm() {
               />
               {errors.password && <p className="text-sm text-red-500">la password es requerida.</p>}
             </div>
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-semibold text-zinc-200">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="contraseña"
+                className="w-full rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
+                {...register('email', { required: true })}
+              />
+              {errors.email && <p className="text-sm text-red-500">el email es requerido.</p>}
+            </div>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -98,14 +97,14 @@ export function LoginForm() {
               type="submit"
               className="w-full rounded-2xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-400 hover:text-zinc-950 sm:w-auto"
             >
-              Iniciar Sesión
+              Registrarse
             </button>
-            <Link to="/register" className="w-full sm:w-auto">
+            <Link to="/login" className="w-full sm:w-auto">
               <button
                 type="button"
                 className="w-full rounded-2xl bg-zinc-800 px-6 py-3 text-sm font-semibold text-white transition hover:bg-zinc-700 sm:w-auto"
               >
-                Registrarse
+                Login
               </button>
             </Link>
           </div>
