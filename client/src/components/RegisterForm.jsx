@@ -84,7 +84,7 @@ export function RegisterForm() {
               <input
                 id="email"
                 type="email"
-                placeholder="contraseña"
+                placeholder="email"
                 className="w-full rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-zinc-100 outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
                 {...register('email', { required: true })}
               />
